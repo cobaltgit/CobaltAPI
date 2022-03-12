@@ -6,25 +6,28 @@ from fastapi.staticfiles import StaticFiles
 with open("pyproject.toml", "rb") as pyproject:
     info = tomli.load(pyproject)["tool"]["poetry"]
 
-app = FastAPI()
+__version__ = info["version"]
+
+tags = [
+    {"name": "Utilities", "description": "API-related utilities"},
+    {"name": "Random", "description": "Random things (facts and more to come)"},
+]
+
+app = FastAPI(
+    title=info["name"],
+    description=info["description"],
+    version=__version__,
+    contact={"name": "Discord - cobalt#9144", "url": "https://discord.com/users/700661710696087562"},
+    license_info={
+        "name": "MPL 2.0",
+        "url": "https://www.mozilla.org/en-US/MPL/2.0/",
+    },
+    openapi_tags=tags,
+    docs_url="/",
+    redoc_url=None,
+)
 app.mount("/assets", StaticFiles(directory="app/assets"), name="assets")
 
-
-def custom_openapi():
-    if app.openapi_schema:
-        return app.openapi_schema
-    openapi_schema = get_openapi(
-        title=info["name"],
-        version=info["version"],
-        description=info["description"],
-        routes=app.routes,
-    )
-    openapi_schema["info"]["x-logo"] = {"url": "/assets/cobaltapi_logo.svg"}
-    app.openapi_schema = openapi_schema
-    return app.openapi_schema
-
-
-app.openapi = custom_openapi
 
 with open(
     "app/files/facts.txt", "r"

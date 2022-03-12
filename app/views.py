@@ -1,24 +1,18 @@
 from random import sample
 
 from fastapi import HTTPException
-from fastapi.responses import ORJSONResponse, RedirectResponse
+from fastapi.responses import ORJSONResponse
 
 from app import app
 
 
-@app.get("/")
-async def redirect_to_docs():
-    """Redirect to API documentation"""
-    return RedirectResponse(url="/docs", status_code=303)
-
-
-@app.get("/ping", response_class=ORJSONResponse)
+@app.get("/ping", response_class=ORJSONResponse, tags=["Utilities"])
 async def ping():
     """Ping the API"""
     return {"response": "Pong!"}
 
 
-@app.get("/facts", response_class=ORJSONResponse)
+@app.get("/facts", response_class=ORJSONResponse, tags=["Random"])
 async def get_fact(count: int = 1):
     """Get random facts from a list of 3,090 facts"""
     if count > len(app.facts):
