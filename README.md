@@ -6,9 +6,7 @@ Public instance: [https://api.cobaltonline.net/](https://api.cobaltonline.net/)
 
 ## Endpoints
 
-`GET /fact?count={count}`  
-Get random facts from a list of 3,090 facts  
-`count` - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
+See `/` for a list of endpoints.
 
 ## Install your own instance
 
