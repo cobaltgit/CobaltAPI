@@ -5,7 +5,7 @@ A public instance of this API will be available soon
 
 ## Endpoints
 
-`GET /fact?count={count}`
+`GET /fact?count={count}`  
 Get random facts from a list of 3,090 facts  
 `count` - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
 
