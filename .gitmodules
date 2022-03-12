@@ -1,0 +1,3 @@
+[submodule "dailyhi"]
+	path = dailyhi
+	url = https://github.com/assaf/dailyhi
