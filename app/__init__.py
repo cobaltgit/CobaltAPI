@@ -6,15 +6,18 @@ with open("pyproject.toml", "rb") as pyproject:
     info = tomli.load(pyproject)["tool"]["poetry"]
 
 __version__ = info["version"]
+__license__ = "MPL-2.0"
+__author__ = "Cobalt"
+__author_contact__ = {"discord": {"name": "cobalt#9144", "id": 700661710696087562}}
 
 tags = [
     {"name": "Utilities", "description": "API-related utilities"},
     {"name": "Random", "description": "Random things (facts and more to come)"},
 ]
-
 app = FastAPI(
     title=info["name"],
-    description=info["description"],
+    description=f"""{info['description']}\n
+Discord - [`{__author_contact__['discord']['name']}`](https://discord.com/users/{__author_contact__['discord']['id']})""",
     version=__version__,
     license_info={
         "name": "MPL 2.0",
@@ -24,7 +27,6 @@ app = FastAPI(
     docs_url="/",
     redoc_url=None,
 )
-
 
 with open(
     "app/files/facts.txt", "r"
