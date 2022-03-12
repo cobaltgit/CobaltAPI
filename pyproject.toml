@@ -3,7 +3,7 @@ name = "CobaltAPI"
 version = "1.0.0"
 description = "General purpose API with many endpoints"
 authors = ["cobaltgit <criterion@chitco.co.uk>"]
-license = "MIT"
+license = "MPL-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.10"
