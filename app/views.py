@@ -12,14 +12,14 @@ async def redirect_to_docs():
     return RedirectResponse(url="/docs", status_code=303)
 
 
-@app.get("/ping")
+@app.get("/ping", response_class=ORJSONResponse)
 async def ping():
     """Ping the API"""
     return {"response": "Pong!"}
 
 
 @app.get("/facts", response_class=ORJSONResponse)
-async def get_fact(count: int = 1) -> dict[str, str | list[str]]:
+async def get_fact(count: int = 1):
     """Get random facts from a list of 3,090 facts"""
     if count > len(app.facts):
         raise HTTPException(status_code=400, detail=f"Attempted to request more than {len(app.facts)} facts")
