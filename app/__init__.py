@@ -1,12 +1,10 @@
-import re
-
+import tomli
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
 
-with open("pyproject.toml", "r") as pyproject:
-    if ver := re.search("^version.*$", pyproject.read(), re.MULTILINE):
-        __version__ = ver.group().split("=")[-1].strip().replace('"', "")
+with open("pyproject.toml", "rb") as pyproject:
+    info = tomli.load(pyproject)["tool"]["poetry"]
 
 app = FastAPI()
 app.mount("/assets", StaticFiles(directory="app/assets"), name="assets")
@@ -16,9 +14,9 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title="Cobalt API",
-        version=__version__,
-        description="A general purpose API with many endpoints - IN DEVELOPMENT",
+        title=info["name"],
+        version=info["version"],
+        description=info["description"],
         routes=app.routes,
     )
     openapi_schema["info"]["x-logo"] = {"url": "/assets/cobaltapi_logo.svg"}
