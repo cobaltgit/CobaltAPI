@@ -12,6 +12,12 @@ async def redirect_to_docs():
     return RedirectResponse(url="/docs", status_code=303)
 
 
+@app.get("/ping")
+async def ping():
+    """Ping the API"""
+    return {"response": "Pong!"}
+
+
 @app.get("/facts", response_class=ORJSONResponse)
 async def get_fact(count: int = 1) -> dict[str, str | list[str]]:
     """Get random facts from a list of 3,090 facts"""
