@@ -14,12 +14,14 @@ repos:
             "--ignore-init-module-imports",
           ]
         files: \.py$
+
       - id: isort
         name: Sorting import statements
         entry: bash -c 'isort "$@"; git add -u' --
         language: python
         args: ["--filter-files"]
         files: \.py$
+
       - id: black
         name: Black Python code formatting
         entry: bash -c 'black "$@"; git add -u' --
