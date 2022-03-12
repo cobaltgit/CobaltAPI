@@ -1,7 +1,6 @@
 import tomli
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
-from fastapi.staticfiles import StaticFiles
 
 with open("pyproject.toml", "rb") as pyproject:
     info = tomli.load(pyproject)["tool"]["poetry"]
@@ -17,7 +16,6 @@ app = FastAPI(
     title=info["name"],
     description=info["description"],
     version=__version__,
-    contact={"name": "Discord - cobalt#9144", "url": "https://discord.com/users/700661710696087562"},
     license_info={
         "name": "MPL 2.0",
         "url": "https://www.mozilla.org/en-US/MPL/2.0/",
@@ -26,7 +24,6 @@ app = FastAPI(
     docs_url="/",
     redoc_url=None,
 )
-app.mount("/assets", StaticFiles(directory="app/assets"), name="assets")
 
 
 with open(
