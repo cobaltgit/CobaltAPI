@@ -12,8 +12,9 @@ Get \<count\> random facts from a list of 3,090 facts
 `GET /randint?floor={ceil}&ceil={ceil}&count={count}`  
 Get \<count\> random integers between \<floor\> and \<ceil\>  
 `count`: integer - optional parameter - the number of integers to retrieve - can be anywhere between 1 and 1000 (default: 1)  
-`floor`: integer - optional parameter - the minimum integer in the range - must be at least `-sys.maxsize` (default: 0)  
+`floor`: integer - optional parameter - the minimum integer in the range - must be at least `-sys.maxsize`* (default: 0)  
 `ceil`: integer - optional parameter - the maximum integer in the range - can be anywhere between `-sys.maxsize + 1` and `sys.maxsize`, must be greater than `floor` (default: 25)  
+\* `sys.maxsize` is 9223372036854775807 on a 64-bit system - the maximum value of a 64-bit signed integer, or on a 32-bit system, 2147483647
 
 ## Install your own instance
 
