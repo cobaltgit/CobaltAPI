@@ -14,7 +14,12 @@ async def ping():
 
 @app.get("/facts", response_class=ORJSONResponse, tags=["Random"])
 async def get_fact(count: int = 1):
-    """Get random facts from a list of 3,090 facts"""
+    """Get <count> random facts from a list of 3,090 facts"""
     if count > len(app.facts):
         raise HTTPException(status_code=400, detail=f"Attempted to request more than {len(app.facts)} facts")
-    return {"response": sample(app.facts, count)}
+    else:
+        samp = sample(app.facts, count)
+        if count == 1:
+            return {"response": samp[0]}
+        else:
+            return {"response": samp}
