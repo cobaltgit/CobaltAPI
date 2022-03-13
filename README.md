@@ -5,6 +5,9 @@ A public instance of this API is available [here](https://api.cobaltonline.net)
 
 ## Endpoints
 
+`GET /ping`  
+Returns a simple "Pong!" response, showing that the API is online
+
 `GET /fact?count={count}`  
 Get \<count\> random facts from a list of 3,090 facts  
 `count`: integer - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
