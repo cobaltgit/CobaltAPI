@@ -21,7 +21,7 @@ async def ping():
 
 @app.get("/random/facts", response_class=ORJSONResponse, tags=["Random"])
 async def get_fact(count: int = 1):
-    """Get \<count\> random facts from a list of 3,090 facts
+    """Get \<count\> random facts from a list of 3,090 facts  
     `count`: integer - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
     """
     if count > len(app.facts):
@@ -35,10 +35,10 @@ async def get_fact(count: int = 1):
 @app.get("/random/numbers", response_class=ORJSONResponse, tags=["Random"])
 async def random_int(floor: int = 0, ceil: int = 25, count: int = 1):
     """
-    Get \<count\> random integers between \<floor\> and \<ceil\>
-    `count`: integer - optional parameter - the number of integers to retrieve - can be anywhere between 1 and 1000 (default: 1)
-    `floor`: integer - optional parameter - the minimum integer in the range - must be at least `-sys.maxsize`\* (default: 0)
-    `ceil`: integer - optional parameter - the maximum integer in the range - can be anywhere between `-sys.maxsize + 1`\* and `sys.maxsize`\*, must be greater than `floor` (default: 25)
+    Get \<count\> random integers between \<floor\> and \<ceil\>  
+    `count`: integer - optional parameter - the number of integers to retrieve - can be anywhere between 1 and 1000 (default: 1)  
+    `floor`: integer - optional parameter - the minimum integer in the range - must be at least `-sys.maxsize`\* (default: 0)  
+    `ceil`: integer - optional parameter - the maximum integer in the range - can be anywhere between `-sys.maxsize + 1`\* and `sys.maxsize`\*, must be greater than `floor` (default: 25)  
 
     \* `sys.maxsize` is 9223372036854775807 on a 64-bit system - the maximum value of a 64-bit signed integer, or on a 32-bit system, 2147483647
     """
@@ -64,9 +64,9 @@ async def generate_image_macro(image_url: str, top_text: str, bottom_text: str):
     """
     Classic image macro generator using the Impact font
 
-    `image_url`: string - required parameter - the background image URL to use
-    `top_text`: string - required parameter - the top text to use
-    `bottom_text`: string - required parameter - the bottom text to use
+    `image_url`: string - required parameter - the background image URL to use  
+    `top_text`: string - required parameter - the top text to use  
+    `bottom_text`: string - required parameter - the bottom text to use  
     """
 
     loop = asyncio.get_event_loop()
