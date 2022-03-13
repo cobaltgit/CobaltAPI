@@ -12,7 +12,8 @@ __author_contact__ = {"discord": {"name": "cobalt#9144", "id": 70066171069608756
 
 tags = [
     {"name": "Utilities", "description": "API-related utilities"},
-    {"name": "Random", "description": "Random things (facts and more to come)"},
+    {"name": "Random", "description": "Random things (facts, numbers, more)"},
+    {"name": "Fun", "description": "Fun stuff, you get the gist"},
 ]
 app = FastAPI(
     title=info["name"],

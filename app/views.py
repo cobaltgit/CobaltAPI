@@ -1,19 +1,25 @@
+import asyncio
+from functools import partial
+from io import BytesIO
 from random import randint, sample
 from sys import maxsize
 
+import aiohttp
 from fastapi import HTTPException
-from fastapi.responses import ORJSONResponse
+from fastapi.responses import ORJSONResponse, StreamingResponse
 
 from app import app
 
+from .functions import gen_image_macro
 
-@app.get("/ping", response_class=ORJSONResponse, tags=["Utilities"])
+
+@app.get("/utils/ping", response_class=ORJSONResponse, tags=["Utilities"])
 async def ping():
     """Returns a simple "Pong!" response, showing that the API is online"""
     return {"response": "Pong!"}
 
 
-@app.get("/facts", response_class=ORJSONResponse, tags=["Random"])
+@app.get("/random/facts", response_class=ORJSONResponse, tags=["Random"])
 async def get_fact(count: int = 1):
     """Get \<count\> random facts from a list of 3,090 facts
     `count`: integer - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
@@ -26,7 +32,7 @@ async def get_fact(count: int = 1):
     return {"response": samp[0] if count == 1 else samp}
 
 
-@app.get("/randint", response_class=ORJSONResponse, tags=["Random"])
+@app.get("/random/numbers", response_class=ORJSONResponse, tags=["Random"])
 async def random_int(floor: int = 0, ceil: int = 25, count: int = 1):
     """
     Get \<count\> random integers between \<floor\> and \<ceil\>
@@ -51,3 +57,25 @@ async def random_int(floor: int = 0, ceil: int = 25, count: int = 1):
         raise HTTPException(status_code=400, detail=f"Count must be at least 1, got {count}")
 
     return {"response": randint(floor, ceil) if count == 1 else [randint(floor, ceil) for _ in range(count)]}
+
+
+@app.get("/fun/memegen", tags=["Fun"])
+async def generate_image_macro(image_url: str, top_text: str, bottom_text: str):
+    """
+    Classic image macro generator using the Impact font
+
+    `image_url`: string - required parameter - the background image URL to use
+    `top_text`: string - required parameter - the top text to use
+    `bottom_text`: string - required parameter - the bottom text to use
+    """
+
+    loop = asyncio.get_event_loop()
+
+    async with aiohttp.ClientSession(loop=loop) as cs:
+        async with cs.get(image_url) as r:
+            img_bytes = BytesIO(await r.read())
+
+    out = await loop.run_in_executor(
+        None, partial(gen_image_macro, img_bytes, top_text, bottom_text, font_path="app/files/fonts/impact.ttf")
+    )
+    return StreamingResponse(out, media_type="image/png")

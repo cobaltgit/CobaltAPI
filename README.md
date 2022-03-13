@@ -19,6 +19,14 @@ Get \<count\> random integers between \<floor\> and \<ceil\>
 `ceil`: integer - optional parameter - the maximum integer in the range - can be anywhere between `-sys.maxsize + 1`\* and `sys.maxsize`\*, must be greater than `floor` (default: 25)  
 \* `sys.maxsize` is 9223372036854775807 on a 64-bit system - the maximum value of a 64-bit signed integer, or on a 32-bit system, 2147483647
 
+`GET /memegen?image_url=[image_url]&top_text=[top_text]&bottom_text=[bottom_text]`
+
+Classic image macro generator using the Impact font  
+
+`image_url`: string - required parameter - the background image URL to use  
+`top_text`: string - required parameter - the top text to use  
+`bottom_text`: string - required parameter - the bottom text to use
+
 ## Install your own instance
 
 You'll need Git, Python 3.10+ and Poetry installed for this

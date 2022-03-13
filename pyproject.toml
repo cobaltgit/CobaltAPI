@@ -8,6 +8,7 @@ license = "MPL-2.0"
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = {extras = ["all"], version = "^0.75.0"}
+Pillow = "^9.0.1"
 
 [tool.poetry.dev-dependencies]
 black = "*"
