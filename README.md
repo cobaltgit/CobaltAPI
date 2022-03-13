@@ -1,13 +1,19 @@
 # Cobalt API
 
 An unfinished, general purpose API with versatility in mind  
-A public instance of this API will be available soon  
+A public instance of this API is available [here](https://api.cobaltonline.net)
 
 ## Endpoints
 
 `GET /fact?count={count}`  
-Get random facts from a list of 3,090 facts  
-`count` - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
+Get \<count\> random facts from a list of 3,090 facts  
+`count`: integer - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
+
+`GET /randint?floor={ceil}&ceil={ceil}&count={count}`  
+Get \<count\> random integers between \<floor\> and \<ceil\>  
+`count`: integer - optional parameter - the number of integers to retrieve - can be anywhere between 1 and Python's `sys.maxsize` variable (9223372036854775807) (default: 1)  
+`floor`: integer - optional parameter - the minimum integer in the range - must be at least `-sys.maxsize` (default: 0)  
+`ceil`: integer - optional parameter - the maximum integer in the range - can be anywhere between `-sys.maxsize + 1` and `sys.maxsize`, must be greater than `floor` (default: 25)  
 
 ## Install your own instance
 
@@ -21,7 +27,7 @@ $ git clone https://github.com/cobaltgit/CobaltAPI.git
 
 * Install dependencies\* with Poetry
 
-```bash
+```bash|
 $ poetry install
 ```
 
