@@ -15,7 +15,7 @@ async def ping():
 
 @app.get("/facts", response_class=ORJSONResponse, tags=["Random"])
 async def get_fact(count: int = 1):
-    """Get <count> random facts from a list of 3,090 facts"""
+    """Get \<count\> random facts from a list of 3,090 facts"""
     if count > len(app.facts):
         raise HTTPException(status_code=400, detail=f"Attempted to request more than {len(app.facts)} facts")
     elif count < 1:
@@ -26,7 +26,7 @@ async def get_fact(count: int = 1):
 
 @app.get("/randint", response_class=ORJSONResponse, tags=["Random"])
 async def random_int(floor: int = 0, ceil: int = 25, count: int = 1):
-    """Get <count> random integers between <floor> and <ceil>"""
+    """Get \<count\> random integers between \<floor\> and \<ceil\>"""
     if floor < -maxsize:
         raise HTTPException(status_code=400, detail=f"Floor integer must be more than {-maxsize}")
     elif -maxsize + 1 > ceil or ceil > maxsize:
