@@ -27,7 +27,7 @@ $ git clone https://github.com/cobaltgit/CobaltAPI.git
 
 * Install dependencies\* with Poetry
 
-```bash|
+```bash
 $ poetry install
 ```
 
