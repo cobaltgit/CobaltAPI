@@ -32,7 +32,7 @@ async def random_int(floor: int = 0, ceil: int = 25, count: int = 1):
         raise HTTPException(status_code=400, detail=f"Floor integer must be more than {-maxsize}")
     elif -maxsize + 1 > ceil or ceil > maxsize:
         raise HTTPException(status_code=400, detail=f"Ceiling integer must be between {-maxsize+1} and {maxsize}")
-    elif count > 100000:
+    elif count > 1000:
         raise HTTPException(
             status_code=400,
             detail="Cannot generate more than 100,000 random integers",
