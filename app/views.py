@@ -9,13 +9,15 @@ from app import app
 
 @app.get("/ping", response_class=ORJSONResponse, tags=["Utilities"])
 async def ping():
-    """Ping the API"""
+    """Returns a simple "Pong!" response, showing that the API is online"""
     return {"response": "Pong!"}
 
 
 @app.get("/facts", response_class=ORJSONResponse, tags=["Random"])
 async def get_fact(count: int = 1):
-    """Get \<count\> random facts from a list of 3,090 facts"""
+    """Get \<count\> random facts from a list of 3,090 facts
+    `count`: integer - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
+    """
     if count > len(app.facts):
         raise HTTPException(status_code=400, detail=f"Attempted to request more than {len(app.facts)} facts")
     elif count < 1:
@@ -26,8 +28,14 @@ async def get_fact(count: int = 1):
 
 @app.get("/randint", response_class=ORJSONResponse, tags=["Random"])
 async def random_int(floor: int = 0, ceil: int = 25, count: int = 1):
-    """Get \<count\> random integers between \<floor\> and \<ceil\>"""
+    """
+    Get \<count\> random integers between \<floor\> and \<ceil\>
+    `count`: integer - optional parameter - the number of integers to retrieve - can be anywhere between 1 and 1000 (default: 1)
+    `floor`: integer - optional parameter - the minimum integer in the range - must be at least `-sys.maxsize`\* (default: 0)
+    `ceil`: integer - optional parameter - the maximum integer in the range - can be anywhere between `-sys.maxsize + 1`\* and `sys.maxsize`\*, must be greater than `floor` (default: 25)
 
+    \* `sys.maxsize` is 9223372036854775807 on a 64-bit system - the maximum value of a 64-bit signed integer, or on a 32-bit system, 2147483647
+    """
     if floor < -maxsize:
         raise HTTPException(status_code=400, detail=f"Floor integer must be more than {-maxsize}")
     elif -maxsize + 1 > ceil or ceil > maxsize:
