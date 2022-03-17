@@ -51,6 +51,6 @@ def gen_image_macro(image_bytes: bytes | str, top_text: str, bottom_text: str, *
         y += lh
 
     out = BytesIO()
-    image.save(out, format="png")
+    image.save(out, format=image.format.lower())
     out.seek(0)
     return out
