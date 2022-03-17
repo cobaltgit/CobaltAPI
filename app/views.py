@@ -9,7 +9,7 @@ from fastapi import HTTPException
 from fastapi.responses import ORJSONResponse, StreamingResponse
 
 from app import app
-
+from PIL import UnidentifiedImageError
 from .functions import gen_image_macro
 
 
@@ -74,8 +74,9 @@ async def generate_image_macro(image_url: str, top_text: str, bottom_text: str):
     async with aiohttp.ClientSession(loop=loop) as cs:
         async with cs.get(image_url) as r:
             img_bytes = BytesIO(await r.read())
+            fmt = r.headers["Content-Type"]
 
     out = await loop.run_in_executor(
         None, partial(gen_image_macro, img_bytes, top_text, bottom_text, font_path="app/files/fonts/impact.ttf")
     )
-    return StreamingResponse(out, media_type="image/png")
+    return StreamingResponse(out, media_type=fmt)
