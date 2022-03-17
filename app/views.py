@@ -76,7 +76,10 @@ async def generate_image_macro(image_url: str, top_text: str, bottom_text: str):
             img_bytes = BytesIO(await r.read())
             fmt = r.headers["Content-Type"]
 
-    out = await loop.run_in_executor(
-        None, partial(gen_image_macro, img_bytes, top_text, bottom_text, font_path="app/files/fonts/impact.ttf")
-    )
+    try:
+        out = await loop.run_in_executor(
+            None, partial(gen_image_macro, img_bytes, top_text, bottom_text, font_path="app/files/fonts/impact.ttf")
+        )
+    except UnidentifiedImageError as e:
+        raise HTTPException(status_code=400, detail="Failed to identify image, maybe the format is invalid?") from e
     return StreamingResponse(out, media_type=fmt)
