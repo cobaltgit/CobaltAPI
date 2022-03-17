@@ -72,9 +72,12 @@ async def generate_image_macro(image_url: str, top_text: str, bottom_text: str):
     loop = asyncio.get_event_loop()
 
     async with aiohttp.ClientSession(loop=loop) as cs:
-        async with cs.get(image_url) as r:
-            img_bytes = BytesIO(await r.read())
-            fmt = r.headers["Content-Type"]
+        try:
+            async with cs.get(image_url) as r:
+                img_bytes = BytesIO(await r.read())
+                fmt = r.headers["Content-Type"]
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Failed to obtain image from URL - {type(e).__name__}: {e}")
 
     try:
         out = await loop.run_in_executor(
