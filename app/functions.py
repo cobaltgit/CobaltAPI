@@ -12,7 +12,7 @@ def create_webdriver() -> webdriver.Firefox:
     """Create a Selenium GeckoDriver instance"""
     environ["MOZ_HEADLESS"] = "1"
     options = webdriver.FirefoxOptions()
-    if architecture() != "aarch64":
+    if machine() != "aarch64":
         return webdriver.Firefox(service=Service(GeckoDriverManager().install()))
     else:
         return webdriver.Firefox(executable_path="app/files/geckodriver-arm64")
