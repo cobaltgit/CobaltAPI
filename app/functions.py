@@ -1,23 +1,25 @@
 import textwrap
 from io import BytesIO
-from app import app
 from PIL import Image, ImageDraw, ImageFont
 from time import sleep
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.service import Service
+from platform import architecture
+from os import environ
 
-def create_webdriver() -> webdriver.Chrome:
-    """Create a Selenium ChromeDriver instance"""
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('--incognito')
-    options.add_argument('--start-maximized')
-    options.add_argument('--disable-gpu')
-    return webdriver.Chrome(ChromeDriverManager().install(), options=options)
+def create_webdriver() -> webdriver.Firefox:
+    """Create a Selenium GeckoDriver instance"""
+    environ["MOZ_HEADLESS"] = "1"
+    options = webdriver.FirefoxOptions()
+    if architecture() != "aarch64":
+        return webdriver.Firefox(service=Service(GeckoDriverManager().install()))
+    else:
+        return webdriver.Firefox(executable_path="app/files/geckodriver-arm64")
 
         
 def screenshot_webpage(url: str, /, *, resolution: str = "1280x720") -> BytesIO:
-    """Take a screenshot of a webpage using ChromeDriver
+    """Take a screenshot of a webpage using GeckoDriver
 
     Args:
         url (str): The URL to get and screenshot
