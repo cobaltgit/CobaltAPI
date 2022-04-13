@@ -5,7 +5,7 @@ from time import sleep
 from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.firefox.service import Service
-from platform import architecture
+from platform import machine
 from os import environ
 
 def create_webdriver() -> webdriver.Firefox:
