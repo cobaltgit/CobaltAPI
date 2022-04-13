@@ -1,8 +1,40 @@
 import textwrap
 from io import BytesIO
-
+from app import app
 from PIL import Image, ImageDraw, ImageFont
+from time import sleep
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
+def create_webdriver() -> webdriver.Chrome:
+    """Create a Selenium ChromeDriver instance"""
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--incognito')
+    options.add_argument('--start-maximized')
+    options.add_argument('--disable-gpu')
+    return webdriver.Chrome(ChromeDriverManager().install(), options=options)
+
+        
+def screenshot_webpage(url: str, /, *, resolution: str = "1280x720") -> BytesIO:
+    """Take a screenshot of a webpage using ChromeDriver
+
+    Args:
+        url (str): The URL to get and screenshot
+
+    Returns:
+        BytesIO: The image bytes of the screenshot, in PNG format
+    """
+    w,h = map(int, resolution.split("x"))
+    wd = create_webdriver()
+    try:
+        wd.set_window_size(w,h)
+        wd.get(url)
+        sleep(1) # give chance for the page to load
+        ss = wd.get_screenshot_as_png()
+        return BytesIO(ss)
+    finally:
+        wd.quit()
 
 def gen_image_macro(image_bytes: bytes | str, top_text: str, bottom_text: str, *, font_path: str) -> BytesIO:
     """Generate an image macro

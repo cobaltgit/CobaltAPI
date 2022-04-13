@@ -29,7 +29,7 @@ Classic image macro generator using the Impact font
 
 ## Install your own instance
 
-You'll need Git, Python 3.10+ and Poetry installed for this
+You'll need Git, Python 3.10+, Poetry and the Chromium browser installed for this. However, you won't need an existing X display set up as the webdriver has been configured to run in headless mode.  
 
 * Clone this Git repository
 

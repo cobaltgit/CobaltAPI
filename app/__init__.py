@@ -1,6 +1,8 @@
 import tomli
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 with open("pyproject.toml", "rb") as pyproject:
     info = tomli.load(pyproject)["tool"]["poetry"]
