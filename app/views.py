@@ -10,7 +10,7 @@ from fastapi.responses import ORJSONResponse, StreamingResponse
 
 from app import app
 from PIL import UnidentifiedImageError
-from .functions import gen_image_macro, screenshot_webpage
+from .functions import gen_image_macro
 
 
 @app.get("/utils/ping", response_class=ORJSONResponse, tags=["Utilities"])
@@ -86,17 +86,3 @@ async def generate_image_macro(image_url: str, top_text: str, bottom_text: str):
     except UnidentifiedImageError as e:
         raise HTTPException(status_code=400, detail="Failed to identify image, maybe the format is invalid?") from e
     return StreamingResponse(out, media_type=fmt)
-
-@app.get("/utils/screenshot", tags=["Utilities"])
-async def screenshot(url: str, resolution: str = "1280x720"):
-    """
-    Screenshot a webpage and return the image
-
-    `url`: string - required parameter - the webpage to screenshot
-    """
-    if tuple(map(int, resolution.split("x"))) > (3840, 2160):
-        raise HTTPException(status_code=400, detail="Resolution must be 3840x2160 or less")
-    loop = asyncio.get_event_loop()
-    fn = partial(screenshot_webpage, url, resolution=resolution)
-    screenshot = await loop.run_in_executor(None, fn)
-    return StreamingResponse(screenshot, media_type='image/png')

@@ -1,42 +1,6 @@
 import textwrap
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
-from time import sleep
-from selenium import webdriver
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.firefox.service import Service
-from platform import machine
-from os import environ
-
-def create_webdriver() -> webdriver.Firefox:
-    """Create a Selenium GeckoDriver instance"""
-    environ["MOZ_HEADLESS"] = "1"
-    options = webdriver.FirefoxOptions()
-    if machine() != "aarch64":
-        return webdriver.Firefox(service=Service(GeckoDriverManager().install()))
-    else:
-        return webdriver.Firefox(executable_path="app/files/geckodriver-arm64")
-
-        
-def screenshot_webpage(url: str, /, *, resolution: str = "1280x720") -> BytesIO:
-    """Take a screenshot of a webpage using GeckoDriver
-
-    Args:
-        url (str): The URL to get and screenshot
-
-    Returns:
-        BytesIO: The image bytes of the screenshot, in PNG format
-    """
-    w,h = map(int, resolution.split("x"))
-    wd = create_webdriver()
-    try:
-        wd.set_window_size(w,h)
-        wd.get(url)
-        sleep(1) # give chance for the page to load
-        ss = wd.get_screenshot_as_png()
-        return BytesIO(ss)
-    finally:
-        wd.quit()
 
 def gen_image_macro(image_bytes: bytes | str, top_text: str, bottom_text: str, *, font_path: str) -> BytesIO:
     """Generate an image macro
