@@ -32,13 +32,13 @@ async def get_fact(count: int = 1):
 
 
 @app.get("/fun/memegen", tags=["Fun"])
-async def generate_image_macro(image_url: str, top_text: str, bottom_text: str):
+async def generate_image_macro(image_url: str, top_text: str, bottom_text: str = None):
     """
     Classic image macro generator using the Impact font
 
     `image_url`: string - required parameter - the background image URL to use  
     `top_text`: string - required parameter - the top text to use  
-    `bottom_text`: string - required parameter - the bottom text to use  
+    `bottom_text`: string - optional parameter - the bottom text to use  
     """
 
     loop = asyncio.get_event_loop()

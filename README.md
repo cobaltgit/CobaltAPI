@@ -25,7 +25,7 @@ Classic image macro generator using the Impact font
 
 `image_url`: string - required parameter - the background image URL to use  
 `top_text`: string - required parameter - the top text to use  
-`bottom_text`: string - required parameter - the bottom text to use
+`bottom_text`: string - optional parameter - the bottom text to use
 
 ## Install your own instance
 
