@@ -23,10 +23,8 @@ async def get_fact(count: int = 1):
     """Get \<count\> random facts from a list of 3,090 facts  
     `count`: integer - optional parameter - the number of facts to retrieve - can be anywhere between 1 and 3090 (default: 1)
     """
-    if count > len(app.facts):
-        raise HTTPException(status_code=400, detail=f"Attempted to request more than {len(app.facts)} facts")
-    elif count < 1:
-        raise HTTPException(status_code=400, detail=f"Count must be at least 1, got {count}")
+    if count < 1 or count > app.facts:
+        raise HTTPException(status_code=400, detail=f"Count must be between 1 and {len(app.facts)}, got {count}")
     samp = sample(app.facts, count)
     return {"response": samp[0] if count == 1 else samp}
 
