@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "CobaltAPI"
-version = "2.1.0"
+version = "2.1.1"
 description = "General purpose API with many endpoints - in active development"
 authors = ["cobaltgit <criterion@chitco.co.uk>"]
 license = "MPL-2.0"

@@ -37,7 +37,7 @@ class JSONResponse(ORJSONResponse):
 
 COBALTAPI = FastAPI(
     title="CobaltAPI",
-    version="2.1.0",
+    version="2.1.1",
     description="A general purpose API with many endpoints - IN DEVELOPMENT",
     docs_url="/",
     default_response_class=JSONResponse,
@@ -56,7 +56,7 @@ async def validation_exception_handler(_, exception: t.Union[HTTPException, Requ
 
     return JSONResponse(
         {"errors": [exception.detail] if isinstance(exception, HTTPException) else exception.errors()},
-        status_code=exception.status_code,
+        status_code=exception.status_code if isinstance(exception, HTTPException) else 400
     )
 
 
