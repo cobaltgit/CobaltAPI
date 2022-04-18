@@ -1,6 +1,8 @@
 import textwrap
 from io import BytesIO
+
 from PIL import Image, ImageDraw, ImageFont
+
 
 def gen_image_macro(image_bytes: bytes | str, top_text: str, bottom_text: str = None, *, font_path: str) -> BytesIO:
     """Generate an image macro
@@ -24,7 +26,10 @@ def gen_image_macro(image_bytes: bytes | str, top_text: str, bottom_text: str = 
         font = ImageFont.truetype(font=font_path, size=h // 10)
         cw, ch = font.getsize("A")
         cpl = w // cw
-        top_lines, bottom_lines = (textwrap.wrap(top_text, width=cpl), textwrap.wrap(bottom_text, width=cpl) if bottom_text else None)
+        top_lines, bottom_lines = (
+            textwrap.wrap(top_text, width=cpl),
+            textwrap.wrap(bottom_text, width=cpl) if bottom_text else None,
+        )
 
         y = 10
         for line in top_lines:
@@ -36,7 +41,7 @@ def gen_image_macro(image_bytes: bytes | str, top_text: str, bottom_text: str = 
             draw.text((x, y + 1), line, font=font, fill="black")
             draw.text((x, y), line, fill="white", font=font)
             y += lh
-        
+
         if bottom_lines is not None:
             y = h - ch * len(bottom_lines) - 15
             for line in bottom_lines:

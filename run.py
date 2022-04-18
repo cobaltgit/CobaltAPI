@@ -1,18 +1,14 @@
-from json import load
-from os import cpu_count
-
 from uvicorn import run
 
-from app import info
+import settings as s
 
 
-def main():
-    if not all(map(info.get, ("name", "description", "version"))):
-        raise RuntimeError("One of ('name', 'description', 'version') is not set in pyproject.toml")
+def main() -> None:
+    """
+    Main function to run CobaltAPI app.
+    """
 
-    with open("config.json", "r") as cfg:
-        config = load(cfg)
-    run(**config, workers=cpu_count() * 2 + 1)
+    return run(app=s.APP, host=s.HOST, port=s.PORT, reload=s.DEBUG, access_log=s.ACCESS_LOG, workers=s.WORKERS)
 
 
 if __name__ == "__main__":
