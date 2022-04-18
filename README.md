@@ -30,7 +30,7 @@ poetry install
 
 To run your instance on a different host, port, turn off debug mode, etc... just manipulate the `settings.py` file - the start script will handle the rest.
 
-`private_settings.py` contains sensitive information that should not be committed to the Git repository. You can copy its template and adjust it to your needs.
+`private_settings.py` contains sensitive information (e.g API tokens) that should not be committed to the Git repository. You can copy its template and adjust it to your needs.
 
 The number of workers will scale to the number of CPU threads available on your system, as per Gunicorn's recommendations (`nproc * 2 + 1`) - for example, a virtual machine with 2 CPU threads will run 5 workers.
 
