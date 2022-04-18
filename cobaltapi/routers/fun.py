@@ -3,7 +3,7 @@ from random import choice
 
 from fastapi import APIRouter
 
-EIGHT_BALL_ROUTER = APIRouter(prefix="/8ball")
+FUN_ROUTER = APIRouter(prefix="/fun")
 ANSWERS = (
     "It is certain.",
     "It is decidedly so.",
@@ -28,7 +28,7 @@ ANSWERS = (
 )
 
 
-@EIGHT_BALL_ROUTER.get("/", tags=["Fun"])
+@FUN_ROUTER.get("/8ball", tags=["Fun"])
 async def get_answer(question: t.Optional[str] = None):
     """
     Get random answer.

@@ -10,10 +10,10 @@ from base64 import b64encode
 
 from cobaltapi.functions import gen_image_macro
 
-IMAGE_MACRO_ROUTER = APIRouter(prefix='/image_macro')
+IMAGE_ROUTER = APIRouter(prefix='/images')
 
 
-@IMAGE_MACRO_ROUTER.get("/", tags=["Image"])
+@IMAGE_ROUTER.get("/macro", tags=["Images"])
 async def generate_image_macro(image_url: str, top_text: str, bottom_text: str = None):
     """
     Classic image macro generator using the Impact font  

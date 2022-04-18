@@ -5,14 +5,14 @@ from fastapi import APIRouter, HTTPException
 
 import settings as s
 
-FACTS_ROUTER = APIRouter(prefix="/facts")
+RANDOM_ROUTER = APIRouter(prefix="/random")
 
 with open(s.FACTS_PATH, "r") as facts:
     FACTS = [fact.strip() for fact in facts.readlines()]
     """Cached list of all facts"""
 
 
-@FACTS_ROUTER.get("/", tags=["Random"])
+@RANDOM_ROUTER.get("/facts", tags=["Random"])
 async def get_fact(count: t.Optional[int] = None):
     """
     Get random facts.
