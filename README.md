@@ -37,5 +37,5 @@ The number of workers will scale to the number of CPU threads available on your 
 - 4. Serve it up!
 
 ```bash
-python3.10 run.py
+python3 run.py
 ```
