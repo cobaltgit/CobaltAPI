@@ -33,6 +33,4 @@ async def generate_image_macro(image_url: str, top_text: str, bottom_text: str =
         )
     except UnidentifiedImageError as e:
         raise HTTPException(status_code=400, detail="Failed to identify image, maybe the format is invalid?") from e
-    return {
-        "b64_data": f"data:{fmt};base64,{b64encode(out.read()).decode('utf-8')}",
-    }
+    return f"data:{fmt};base64,{b64encode(out.read()).decode('utf-8')}"
