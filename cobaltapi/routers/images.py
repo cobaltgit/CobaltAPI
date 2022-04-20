@@ -15,12 +15,7 @@ IMAGE_ROUTER = APIRouter(prefix='/images')
 
 @IMAGE_ROUTER.get("/macro", tags=["Images"])
 async def generate_image_macro(image_url: str, top_text: str, bottom_text: str = None):
-    """
-    Classic image macro generator using the Impact font  
-    `image_url`: string - required parameter - the background image URL to use  
-    `top_text`: string - required parameter - the top text to use  
-    `bottom_text`: string - optional parameter - the bottom text to use  
-    """
+    """Generate an image macro from `image_url` with `top_text` and `bottom_text`."""
 
     loop = asyncio.get_event_loop()
 
