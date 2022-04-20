@@ -37,7 +37,7 @@ class JSONResponse(ORJSONResponse):
 
 COBALTAPI = FastAPI(
     title="CobaltAPI",
-    version="2.1.1",
+    version="2.2.0-pre",
     description="A general purpose API with many endpoints - IN DEVELOPMENT",
     docs_url="/",
     default_response_class=JSONResponse,
